@@ -1,0 +1,30 @@
+import { DbGenerateRequest } from "../model/db/requests/db.generate.request";
+import { ApiResponse } from "../model/generic/api.response";
+import { DbTransaction } from "../model/db/db.transaction";
+import { DbTransactionRequest } from "../model/db/requests/db.transaction.request";
+import { DbServicesListRequest } from "../model/db/requests/db.services.list.request";
+import { DbServicesListResponse } from "../model/db/response/db.services.list.response";
+import { DbTransactionLimit } from "../model/db/db.transaction.limit";
+import { DbTransactionLimitsRequest } from "../model/db/requests/db.transaction.limits.request";
+import { DbServiceCommissionRequest } from "../model/db/requests/db.service.commission.request";
+import { DbCommission } from "../model/db/db.commission";
+import { HttpService } from "../utils/http.service";
+import { DbGenerateResponse } from "../model/db/response/db.generate.response";
+export declare class DirectBilling extends HttpService {
+    apiKey: string;
+    secret: string;
+    debugMode: boolean;
+    serviceId: string;
+    private static API_URL;
+    private static TRANSACTION_STATUS_URL;
+    private static SERVICES_LIST_URL;
+    private static TRANSACTION_LIMITS_URL;
+    private static SERVICE_COMMISSION_URL;
+    constructor(apiKey: string, secret: string, debugMode?: boolean, serviceId?: string);
+    generateTransaction(request: Partial<DbGenerateRequest>): Promise<ApiResponse<DbGenerateResponse>>;
+    getTransaction(request: Partial<DbTransactionRequest>): Promise<ApiResponse<DbTransaction>>;
+    getServices(request: Partial<DbServicesListRequest>): Promise<ApiResponse<DbServicesListResponse>>;
+    getTransactionLimits(request: Partial<DbTransactionLimitsRequest>): Promise<ApiResponse<DbTransactionLimit[]>>;
+    getServiceCommission(request: Partial<DbServiceCommissionRequest>): Promise<ApiResponse<DbCommission[]>>;
+    private sign;
+}

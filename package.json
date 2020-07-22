@@ -1,0 +1,31 @@
+{
+  "name": "node-simpay-api",
+  "version": "1.0.0",
+  "description": "Node wrapper for SimPay API",
+  "main": "dist/lib/index.js",
+  "types": "dist/types/index.d.ts",
+  "scripts": {
+    "build": "npm run lint && tsc",
+    "lint": "tslint -p tsconfig.json",
+    "test": "ts-node tests/*"
+  },
+  "author": "XTR3M3K",
+  "maintainers": [
+    {
+      "name": "Lenistwo",
+      "url": "https://github.com/Lenistwo"
+    },
+    {
+      "name": "XTR3M3K",
+      "url": "https://github.com/XTR3M3K"
+    }
+  ],
+  "dependencies": {
+    "got": "^11.3.0"
+  },
+  "devDependencies": {
+    "ts-node": "^8.10.2",
+    "tslint": "^6.1.2",
+    "typescript": "^3.9.5"
+  }
+}
