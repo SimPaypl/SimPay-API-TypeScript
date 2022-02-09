@@ -1,8 +1,7 @@
-import {HttpService} from "../utils/http.service";
-import {Hashing} from "../utils/hashing";
+import {Hashing} from '../lib/hashing';
 
-export class SmsXml extends HttpService {
-    private static charset: string = 'ABCDEFGHIJKLMNPQRSTUVWXYZ123456789';
+export class SmsXml {
+    private static charset = 'ABCDEFGHIJKLMNPQRSTUVWXYZ123456789';
     private static params = ['send_number', 'sms_text', 'sms_from', 'sms_id', 'sign'];
     private static codes: any = {
         '7055': 0.25,
@@ -31,13 +30,13 @@ export class SmsXml extends HttpService {
         '79908': 4.5,
         '91998': 9.5,
         '92598': 12.5,
-    }
+    };
 
-    constructor(private apiKey: string) {
-        super();
-    }
+    constructor(private apiKey: string) {}
 
-    // https://docs.simpay.pl/#odbieranie-informacji-o-sms
+    /*
+        https://docs-new.simpay.pl/typescript/?typescript#smsxml-odbieranie-informacji-o-sms
+     */
     checkParameters(map: any): boolean {
         for (const param of SmsXml.params) {
             if (!map[param]) return false;
@@ -46,9 +45,11 @@ export class SmsXml extends HttpService {
         return map.sign === this.sign(map);
     }
 
-    // https://docs.simpay.pl/#odbieranie-informacji-o-sms
+    /*
+        https://docs-new.simpay.pl/typescript/?typescript#smsxml-odbieranie-informacji-o-sms
+     */
     generateCode(): string {
-        let result: string = '';
+        let result = '';
 
         for (let i = 0; i < 6; i++) {
             result += SmsXml.charset.charAt(this.random(0, SmsXml.charset.length));
@@ -57,17 +58,22 @@ export class SmsXml extends HttpService {
         return result;
     }
 
-    // https://docs.simpay.pl/#odbieranie-informacji-o-sms
+    /*
+        https://docs-new.simpay.pl/typescript/?typescript#smsxml-odbieranie-informacji-o-sms
+     */
     getSmsValue(phone: string): number {
         return SmsXml.codes[phone];
     }
 
-    // https://docs.simpay.pl/#odbieranie-informacji-o-sms
+    /*
+        https://docs-new.simpay.pl/typescript/?typescript#smsxml-odbieranie-informacji-o-sms
+     */
     generateXml(text: string) {
-        return `<?xml version=\"1.0\" encoding=\"UTF-8\"?><sms-response>${text.normalize('NFKD')}<sms-text></sms-text></sms-response>`;
+        return `<?xml version="1.0" encoding="UTF-8"?><sms-response>${text.normalize('NFKD')}<sms-text></sms-text></sms-response>`;
     }
 
     private sign(map: any) {
+        // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
         return Hashing.sha256(`${map.sms_id}${map.sms_text}${map.sms_from}${map.send_number}${map.send_time}${this.apiKey}`);
     }
 

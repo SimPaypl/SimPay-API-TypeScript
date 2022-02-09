@@ -1,22 +1,62 @@
 {
-    "env": {
-        "browser": false,
-        "commonjs": true,
-        "es2020": true
-    },
+    "root": true,
     "extends": [
         "eslint:recommended",
-        "plugin:@typescript-eslint/recommended"
+        "plugin:@typescript-eslint/recommended",
+        "plugin:@typescript-eslint/recommended-requiring-type-checking"
     ],
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
-        "ecmaVersion": 11
+        "ecmaVersion": 13,
+        "project": [ "./tsconfig.json" ]
     },
     "plugins": [
         "@typescript-eslint"
     ],
     "rules": {
-        "semi": ["error", "always"],
-        "quotes": ["error", "double"]
+        "indent": [
+            "error",
+            4
+        ],
+        "linebreak-style": [
+            "error",
+            "unix"
+        ],
+        "quotes": [
+            "error",
+            "single"
+        ],
+        "semi": [
+            "error",
+            "always"
+        ],
+        "@typescript-eslint/type-annotation-spacing": [
+            "error",
+            {
+                "before": true,
+                "after": true,
+                "overrides": {
+                    "colon": {
+                        "before": false,
+                        "after": true
+                    }
+                }
+            }
+        ],
+        "@typescript-eslint/no-unsafe-member-access": [
+            "off"
+        ],
+        "@typescript-eslint/no-unsafe-argument": [
+            "off"
+        ],
+        "@typescript-eslint/no-unsafe-return": [
+            "off"
+        ],
+        "@typescript-eslint/no-unsafe-assignment": [
+            "off"
+        ],
+        "@typescript-eslint/no-unsafe-call": [
+            "off"
+        ]
     }
 }
