@@ -2,7 +2,7 @@ import {DbTransactionStatus} from './db.transaction.status';
 import {DbProvider} from '../service/db.provider';
 
 export interface DbTransaction {
-    id: number;
+    id: string;
     status: DbTransactionStatus;
 
     phoneNumber?: string;

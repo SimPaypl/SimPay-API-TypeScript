@@ -138,7 +138,7 @@ export class DirectBilling {
     /*
         https://docs-new.simpay.pl/typescript/?typescript#directbilling-pobieranie-informacji-o-transakcji
      */
-    async getTransaction(serviceId: number, transactionId: number): Promise<DbTransaction | undefined> {
+    async getTransaction(serviceId: number, transactionId: string): Promise<DbTransaction | undefined> {
         const transaction = (await this.client.get(`/${serviceId}/transactions/${transactionId}`)).data.data;
 
         transaction.created_at = new Date(transaction.created_at.replace(' ', 'T'));

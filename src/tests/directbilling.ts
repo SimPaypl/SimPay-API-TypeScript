@@ -19,7 +19,7 @@ const run = async () => {
     console.log( await db.getTransactionsPaginated(158, 1, 100) );
 
     // https://docs-new.simpay.pl/typescript/?typescript#directbilling-pobieranie-informacji-o-transakcji
-    console.log( await db.getTransaction(158, 559911) );
+    console.log( await db.getTransaction(158, '559911') );
 
     // https://docs-new.simpay.pl/typescript/?typescript#directbilling-generowanie-transakcji
     console.log( await db.createTransaction(158, 'key', {

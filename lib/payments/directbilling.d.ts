@@ -17,7 +17,7 @@ export declare class DirectBilling {
     calculateCommission(serviceId: number, amount: number): Promise<DbCalculation | undefined>;
     getTransactions(serviceId: number): Promise<PartialDbTransaction[]>;
     getTransactionsPaginated(serviceId: number, page?: number, pageSize?: number): Promise<PaginatedResponse<PartialDbTransaction>>;
-    getTransaction(serviceId: number, transactionId: number): Promise<DbTransaction | undefined>;
+    getTransaction(serviceId: number, transactionId: string): Promise<DbTransaction | undefined>;
     createTransaction(serviceId: number, key: string, request: DbTransactionRequest): Promise<DbGenerationResponse | undefined>;
     checkNotification(key: string, body: any): DbTransaction | undefined;
     generateSignature(key: string, request: DbTransactionRequest): string;

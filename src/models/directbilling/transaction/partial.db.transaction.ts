@@ -2,7 +2,7 @@ import {DbProvider} from '../service/db.provider';
 import {DbTransactionStatus} from './db.transaction.status';
 
 export interface PartialDbTransaction {
-    id: number;
+    id: string;
     status: DbTransactionStatus;
 
     value: number;
