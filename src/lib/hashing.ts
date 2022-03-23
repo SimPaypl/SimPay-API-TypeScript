@@ -18,6 +18,6 @@ export class Hashing {
 
         hash.update(text);
 
-        return hash.digest('hex').toUpperCase();
+        return hash.digest('hex');
     }
 }
