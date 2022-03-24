@@ -1,6 +1,8 @@
 export declare enum DbTransactionStatus {
-    SERVICE_DB_NEW = "service_db_new",
-    SERVICE_DB_ACTIVE = "service_db_active",
-    SERVICE_DB_REJECTED = "service_db_rejected",
-    SERVICE_DB_ONGOING_REGISTRATION = "service_db_ongoing_registration"
+    TRANSACTION_DB_NEW = "transaction_db_new",
+    TRANSACTION_DB_CONFIRMED = "transaction_db_confirmed",
+    TRANSACTION_DB_REJECTED = "transaction_db_rejected",
+    TRANSACTION_DB_CANCELED = "transaction_db_canceled",
+    TRANSACTION_DB_PAYED = "transaction_db_payed",
+    TRANSACTION_DB_GENERATE_ERROR = "transaction_db_generate_error"
 }

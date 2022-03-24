@@ -1,10 +1,10 @@
-import { ServiceStatus } from '../../service.status';
-import { DbProvider } from './db.provider';
+import { DBServiceStatus } from '../service/db.service.status';
+import { DbProvider } from '../db.provider';
 export interface DbService {
     id: string;
     name: string;
     suffix: string;
-    status: ServiceStatus;
+    status: DBServiceStatus;
     api?: DbServiceNotify;
     providers: DbServiceProviders;
     commissions: DbServiceProvidersCommission;

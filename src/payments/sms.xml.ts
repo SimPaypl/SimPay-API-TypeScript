@@ -35,7 +35,7 @@ export class SmsXml {
     constructor(private apiKey: string) {}
 
     /*
-        https://docs-new.simpay.pl/typescript/?typescript#smsxml-odbieranie-informacji-o-sms
+        https://docs.simpay.pl/typescript/?typescript#smsxml-odbieranie-informacji-o-sms
      */
     checkParameters(map: any): boolean {
         for (const param of SmsXml.params) {
@@ -46,7 +46,7 @@ export class SmsXml {
     }
 
     /*
-        https://docs-new.simpay.pl/typescript/?typescript#smsxml-odbieranie-informacji-o-sms
+        https://docs.simpay.pl/typescript/?typescript#smsxml-odbieranie-informacji-o-sms
      */
     generateCode(): string {
         let result = '';
@@ -59,14 +59,14 @@ export class SmsXml {
     }
 
     /*
-        https://docs-new.simpay.pl/typescript/?typescript#smsxml-odbieranie-informacji-o-sms
+        https://docs.simpay.pl/typescript/?typescript#smsxml-odbieranie-informacji-o-sms
      */
     getSmsValue(phone: string): number {
         return SmsXml.codes[phone];
     }
 
     /*
-        https://docs-new.simpay.pl/typescript/?typescript#smsxml-odbieranie-informacji-o-sms
+        https://docs.simpay.pl/typescript/?typescript#smsxml-odbieranie-informacji-o-sms
      */
     generateXml(text: string) {
         return `<?xml version="1.0" encoding="UTF-8"?><sms-response>${text.normalize('NFKD')}<sms-text></sms-text></sms-response>`;

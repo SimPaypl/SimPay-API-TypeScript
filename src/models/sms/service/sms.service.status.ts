@@ -1,4 +1,4 @@
-export enum ServiceStatus {
+export enum SMSServiceStatus {
     SERVICE_NEW = 'service_new',
     SERVICE_ACTIVE = 'service_active',
     SERVICE_BLOCKED = 'service_blocked',

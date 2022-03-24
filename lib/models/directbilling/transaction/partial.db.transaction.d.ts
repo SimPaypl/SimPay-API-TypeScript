@@ -1,4 +1,4 @@
-import { DbProvider } from '../service/db.provider';
+import { DbProvider } from '../db.provider';
 import { DbTransactionStatus } from './db.transaction.status';
 export interface PartialDbTransaction {
     id: string;

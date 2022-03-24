@@ -1,5 +1,5 @@
 import {DbTransactionStatus} from './db.transaction.status';
-import {DbProvider} from '../service/db.provider';
+import {DbProvider} from '../db.provider';
 
 export interface DbTransaction {
     id: string;

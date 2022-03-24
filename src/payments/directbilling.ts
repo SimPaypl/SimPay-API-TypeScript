@@ -7,6 +7,7 @@ import {PartialDbTransaction} from '../models/directbilling/transaction/partial.
 import {DbTransaction} from '../models/directbilling/transaction/db.transaction';
 import {DbGenerationResponse} from '../models/directbilling/transaction/db.generation.response';
 import {DbTransactionRequest} from '../models/directbilling/transaction/db.transaction.request';
+import {DbNotificationRequest} from '../models/directbilling/transaction/db.notifications.request';
 import {Hashing} from '../lib/hashing';
 
 export class DirectBilling {
@@ -28,7 +29,7 @@ export class DirectBilling {
     }
 
     /*
-        https://docs-new.simpay.pl/typescript/?typescript#directbilling-pobieranie-listy-uslug
+        https://docs.simpay.pl/typescript/?typescript#directbilling-pobieranie-listy-uslug
      */
     async getServices(): Promise<PartialDbService[]> {
         const result = [];
@@ -70,7 +71,7 @@ export class DirectBilling {
     }
 
     /*
-        https://docs-new.simpay.pl/typescript/?typescript#directbilling-pobieranie-informacji-o-usludze
+        https://docs.simpay.pl/typescript/?typescript#directbilling-pobieranie-informacji-o-usludze
      */
     async getService(id: number): Promise<DbService | undefined> {
         try {
@@ -85,14 +86,14 @@ export class DirectBilling {
     }
 
     /*
-        https://docs-new.simpay.pl/typescript/?typescript#directbilling-kalkulacja-prowizji
+        https://docs.simpay.pl/typescript/?typescript#directbilling-kalkulacja-prowizji
      */
     async calculateCommission(serviceId: number, amount: number): Promise<DbCalculation | undefined> {
         return (await this.client.get(`/${serviceId}/calculate?amount=${amount}`)).data.data;
     }
 
     /*
-        https://docs-new.simpay.pl/typescript/?typescript#directbilling-pobieranie-listy-transakcji
+        https://docs.simpay.pl/typescript/?typescript#directbilling-pobieranie-listy-transakcji
      */
     async getTransactions(serviceId: number): Promise<PartialDbTransaction[]> {
         const result = [];
@@ -136,7 +137,7 @@ export class DirectBilling {
     }
 
     /*
-        https://docs-new.simpay.pl/typescript/?typescript#directbilling-pobieranie-informacji-o-transakcji
+        https://docs.simpay.pl/typescript/?typescript#directbilling-pobieranie-informacji-o-transakcji
      */
     async getTransaction(serviceId: number, transactionId: string): Promise<DbTransaction | undefined> {
         const transaction = (await this.client.get(`/${serviceId}/transactions/${transactionId}`)).data.data;
@@ -148,7 +149,7 @@ export class DirectBilling {
     }
 
     /*
-        https://docs-new.simpay.pl/typescript/?typescript#directbilling-generowanie-transakcji
+        https://docs.simpay.pl/typescript/?typescript#directbilling-generowanie-transakcji
      */
     async createTransaction(serviceId: number, key: string, request: DbTransactionRequest): Promise<DbGenerationResponse | undefined> {
         request.signature = this.generateSignature(key, request);
@@ -157,18 +158,18 @@ export class DirectBilling {
     }
 
     /*
-        https://docs-new.simpay.pl/shell/?shell#directbilling-generowanie-transakcji
+        https://docs.simpay.pl/shell/?shell#directbilling-generowanie-transakcji
      */
     checkNotification(key: string, body: any) {
-        const signature = this.generateSignature(key, body);
+        const signature = this.generateSignatureNotification(key, body);
 
         if (body.signature !== signature) return undefined;
 
-        return <DbTransaction> body;
+        return <DbNotificationRequest> body;
     }
 
     /*
-        https://docs-new.simpay.pl/shell/?shell#directbilling-generowanie-transakcji
+        https://docs.simpay.pl/shell/?shell#directbilling-generowanie-transakcji
      */
     generateSignature(key: string, request: DbTransactionRequest): string {
         const elements = [
@@ -179,6 +180,25 @@ export class DirectBilling {
             request.returns?.success,
             request.returns?.failure,
             request.phoneNumber,
+            key
+        ].filter(e => e !== undefined && e !== null);
+
+        return Hashing.sha256(elements.join('|'));
+    }
+
+    generateSignatureNotification(key: string, request: DbNotificationRequest): string {
+        const elements = [
+            request.id,
+            request.service_id,
+            request.status,
+            request.values?.net,
+            request.values?.gross,
+            request.values?.partner,
+            request.returns?.success,
+            request.returns?.failure,
+            request.control,
+            request.number_from,
+            request.provider,
             key
         ].filter(e => e !== undefined && e !== null);
 

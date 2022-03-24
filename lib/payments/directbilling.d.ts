@@ -6,6 +6,7 @@ import { PartialDbTransaction } from '../models/directbilling/transaction/partia
 import { DbTransaction } from '../models/directbilling/transaction/db.transaction';
 import { DbGenerationResponse } from '../models/directbilling/transaction/db.generation.response';
 import { DbTransactionRequest } from '../models/directbilling/transaction/db.transaction.request';
+import { DbNotificationRequest } from '../models/directbilling/transaction/db.notifications.request';
 export declare class DirectBilling {
     private readonly key;
     private readonly password;
@@ -21,4 +22,5 @@ export declare class DirectBilling {
     createTransaction(serviceId: number, key: string, request: DbTransactionRequest): Promise<DbGenerationResponse | undefined>;
     checkNotification(key: string, body: any): DbTransaction | undefined;
     generateSignature(key: string, request: DbTransactionRequest): string;
+    generateSignatureNotification(key: string, request: DbNotificationRequest): string;
 }

@@ -1,4 +1,4 @@
-import {DbProvider} from './db.provider';
+import {DbProvider} from '../db.provider';
 
 export interface DbCalculation {
     [DbProvider.PLAY]: DbCalculationAmount;
