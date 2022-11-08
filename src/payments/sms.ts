@@ -209,7 +209,9 @@ export class Sms {
     async verifySmsCode(serviceId: number, code: string, number?: number): Promise<VerificationResponse | undefined> {
         const response = (await this.client.post(`/${serviceId}`, { code, number })).data.data;
 
-        response.used_at = new Date(response.used_at.replace(' ', 'T'));
+        if( response.used_at ) {
+            response.used_at = new Date(response.used_at.replace(' ', 'T'));
+        }
 
         return response;
     }

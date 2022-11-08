@@ -20,7 +20,7 @@ export declare class DirectBilling {
     getTransactionsPaginated(serviceId: number, page?: number, pageSize?: number): Promise<PaginatedResponse<PartialDbTransaction>>;
     getTransaction(serviceId: number, transactionId: string): Promise<DbTransaction | undefined>;
     createTransaction(serviceId: number, key: string, request: DbTransactionRequest): Promise<DbGenerationResponse | undefined>;
-    checkNotification(key: string, body: any): DbTransaction | undefined;
+    checkNotification(key: string, body: any): DbNotificationRequest | undefined;
     generateSignature(key: string, request: DbTransactionRequest): string;
     generateSignatureNotification(key: string, request: DbNotificationRequest): string;
 }

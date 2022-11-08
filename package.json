@@ -1,7 +1,7 @@
 {
   "name": "simpay-typescript-api",
   "author": "Rafał Więcek",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "description": "SimPay.pl API",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
