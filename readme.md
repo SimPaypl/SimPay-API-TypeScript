@@ -1,23 +1,31 @@
 # SimPay-API-TypeScript
-Oficjalny klient do wszystkich API SimPay
+Znajdziesz tu pliki do pobrania i instalacji oficjalnego klienta JavaScript/TypeScript wszystkich dostępnych API SimPay.
 
-# Dokumentacja
+Dzięki naszemu klientowi *zyskasz narzędzia i biblioteki* do integracji API systemu płatności SimPay z Twoją stroną. Dzięki temu zyskasz pełen dostęp do wszystkich funkcji SimPay.
+
+## Dokumentacja
 [Kliknij tutaj](https://docs.simpay.pl/pl/typescript/?typescript#wstep)
 
-# Kontakt
-W razie jakichkolwiek pytań podczas implementacji, problemów, próśb o dodanie funkcjonalności zachęcamy do kontaktu poprzez:
+## Dlaczego warto wybrać SimPay?
+* *Prosta i szybka integracja* – nasz klient API jest intuicyjny w obsłudze, dzięki czemu poradzisz sobie z integracją nawet bez większych umiejętności.
+* *Natychmiastowe zarobki* – ażdego dnia prześlemy Ci zyski z płatności online
+* *Bezpieczeństwo i ciągłe wsparcie techniczne* – gwarantujemy odpowiednie zabezpieczenie wszystkich płatności. A w razie problemów z integracją lub działaniem systemów SimPay, natychmiast reagujemy wsparciem.
 
-<kontakt@simpay.pl>
+Masz problem z integracją lub chcesz dowiedzieć się więcej? Napisz na kontakt@simpay.pl
 
 ---
 
 # SimPay-API-TypeScript
-Official client for all SimPay APIs
+Here you will find files to download and install the official JavaScript/TypeScript client of all available SimPay APIs.
 
-# Documentation
+With our client, you will get *the tools and libraries* to integrate the SimPay payment system API into your site. This will give you full access to all SimPay features.
+
+## Documentation
 [Click here](https://docs.simpay.pl/en/typescript/?typescript#wstep)
 
-# Contact
-If you have any questions during implementation, problems, requests to add functionality, feel free to contact us via:
+## Why should I choose SimPay?
+* *Easy and fast integration* – our API client is inuitive to use, so you can handle the integration even without much skill.
+* *Instant earnings* – we will send you profits from online payments every day.
+* *Safety and continuous technical support* – we guarantee proper security for all payments. And in case of problems with the integration or operation of SimPay systems, we immediately respond with support.
 
-<kontakt@simpay.pl>
+Do you have an issue with integration or want to learn more? Write to kontakt@simpay.pl
