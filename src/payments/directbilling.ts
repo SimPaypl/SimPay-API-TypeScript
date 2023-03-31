@@ -24,12 +24,14 @@ export class DirectBilling {
             headers: {
                 'X-SIM-KEY': this.key,
                 'X-SIM-PASSWORD': this.password,
+                'X-SIM-VERSION': '2.2.2',
+                'X-SIM-PLATFORM': 'TYPESCRIPT',
             }
         });
     }
 
     /*
-        https://docs.simpay.pl/typescript/?typescript#directbilling-pobieranie-listy-uslug
+        https://docs.simpay.pl/pl/typescript/?typescript#directbilling-pobieranie-listy-uslug
      */
     async getServices(): Promise<PartialDbService[]> {
         const result = [];
@@ -71,7 +73,7 @@ export class DirectBilling {
     }
 
     /*
-        https://docs.simpay.pl/typescript/?typescript#directbilling-pobieranie-informacji-o-usludze
+        https://docs.simpay.pl/pl/typescript/?typescript#directbilling-pobieranie-informacji-o-usludze
      */
     async getService(id: number): Promise<DbService | undefined> {
         try {
@@ -86,14 +88,14 @@ export class DirectBilling {
     }
 
     /*
-        https://docs.simpay.pl/typescript/?typescript#directbilling-kalkulacja-prowizji
+        https://docs.simpay.pl/pl/typescript/?typescript#directbilling-kalkulacja-prowizji
      */
     async calculateCommission(serviceId: number, amount: number): Promise<DbCalculation | undefined> {
         return (await this.client.get(`/${serviceId}/calculate?amount=${amount}`)).data.data;
     }
 
     /*
-        https://docs.simpay.pl/typescript/?typescript#directbilling-pobieranie-listy-transakcji
+        https://docs.simpay.pl/pl/typescript/?typescript#directbilling-pobieranie-listy-transakcji
      */
     async getTransactions(serviceId: number): Promise<PartialDbTransaction[]> {
         const result = [];
@@ -137,7 +139,7 @@ export class DirectBilling {
     }
 
     /*
-        https://docs.simpay.pl/typescript/?typescript#directbilling-pobieranie-informacji-o-transakcji
+        https://docs.simpay.pl/pl/typescript/?typescript#directbilling-pobieranie-informacji-o-transakcji
      */
     async getTransaction(serviceId: number, transactionId: string): Promise<DbTransaction | undefined> {
         const transaction = (await this.client.get(`/${serviceId}/transactions/${transactionId}`)).data.data;
@@ -149,7 +151,7 @@ export class DirectBilling {
     }
 
     /*
-        https://docs.simpay.pl/typescript/?typescript#directbilling-generowanie-transakcji
+        https://docs.simpay.pl/pl/typescript/?typescript#directbilling-generowanie-transakcji
      */
     async createTransaction(serviceId: number, key: string, request: DbTransactionRequest): Promise<DbGenerationResponse | undefined> {
         request.signature = this.generateSignature(key, request);

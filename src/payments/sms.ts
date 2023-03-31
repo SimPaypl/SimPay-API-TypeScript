@@ -19,12 +19,14 @@ export class Sms {
             headers: {
                 'X-SIM-KEY': this.key,
                 'X-SIM-PASSWORD': this.password,
+                'X-SIM-VERSION': '2.2.2',
+                'X-SIM-PLATFORM': 'TYPESCRIPT',
             }
         });
     }
 
     /*
-        https://docs.simpay.pl/typescript/?typescript#sms-pobieranie-listy-uslug
+        https://docs.simpay.pl/pl/typescript/?typescript#sms-pobieranie-listy-uslug
      */
     async getServices(): Promise<SmsService[]> {
         const result = [];
@@ -66,7 +68,7 @@ export class Sms {
     }
 
     /*
-        https://docs.simpay.pl/typescript/?typescript#sms-pobieranie-informacji-o-usludze
+        https://docs.simpay.pl/pl/typescript/?typescript#sms-pobieranie-informacji-o-usludze
      */
     async getService(id: number): Promise<SmsService | undefined> {
         const service = (await this.client.get(`/${id}`)).data.data;
@@ -77,7 +79,7 @@ export class Sms {
     }
 
     /*
-        https://docs.simpay.pl/typescript/?typescript#sms-pobieranie-listy-transakcji
+        https://docs.simpay.pl/pl/typescript/?typescript#sms-pobieranie-listy-transakcji
      */
     async getTransactions(serviceId: number): Promise<SmsTransaction[]> {
         const result = [];
@@ -119,7 +121,7 @@ export class Sms {
     }
 
     /*
-        https://docs.simpay.pl/typescript/?typescript#sms-pobieranie-informacji-o-transakcji
+        https://docs.simpay.pl/pl/typescript/?typescript#sms-pobieranie-informacji-o-transakcji
      */
     async getTransaction(serviceId: number, transactionId: number): Promise<SmsTransaction | undefined> {
         const transaction = (await this.client.get(`/${serviceId}/transactions/${transactionId}`)).data.data;
@@ -130,7 +132,7 @@ export class Sms {
     }
 
     /*
-        https://docs.simpay.pl/typescript/?typescript#sms-pobieranie-dostepnych-numerow-dla-uslugi
+        https://docs.simpay.pl/pl/typescript/?typescript#sms-pobieranie-dostepnych-numerow-dla-uslugi
      */
     async getServiceNumbers(serviceId: number): Promise<SmsNumber[]> {
         const result = [];
@@ -160,14 +162,14 @@ export class Sms {
     }
 
     /*
-        https://docs.simpay.pl/typescript/?typescript#sms-informacji-o-pojedynczym-numerze-uslugi
+        https://docs.simpay.pl/pl/typescript/?typescript#sms-informacji-o-pojedynczym-numerze-uslugi
      */
     async getServiceNumber(serviceId: number, number: number): Promise<SmsNumber> {
         return (await this.client.get(`/${serviceId}/numbers/${number}`)).data.data;
     }
 
     /*
-        https://docs.simpay.pl/typescript/?typescript#sms-pobieranie-wszystkich-dostepnych-numerow
+        https://docs.simpay.pl/pl/typescript/?typescript#sms-pobieranie-wszystkich-dostepnych-numerow
      */
     async getNumbers(): Promise<SmsNumber[]> {
         const result = [];
@@ -197,14 +199,14 @@ export class Sms {
     }
 
     /*
-        https://docs.simpay.pl/typescript/?typescript#sms-pobieranie-pojedynczego-numeru-sms
+        https://docs.simpay.pl/pl/typescript/?typescript#sms-pobieranie-pojedynczego-numeru-sms
      */
     async getNumber(number: number): Promise<SmsNumber | undefined> {
         return (await this.client.get(`/numbers/${number}`)).data.data;
     }
 
     /*
-        https://docs.simpay.pl/typescript/?typescript#sms-weryfikacja-poprawnosci-kodu
+        https://docs.simpay.pl/pl/typescript/?typescript#sms-weryfikacja-poprawnosci-kodu
      */
     async verifySmsCode(serviceId: number, code: string, number?: number): Promise<VerificationResponse | undefined> {
         const response = (await this.client.post(`/${serviceId}`, { code, number })).data.data;
