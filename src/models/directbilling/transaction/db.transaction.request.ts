@@ -9,4 +9,5 @@ export interface DbTransactionRequest {
     returns?: DbServiceNotify;
     phoneNumber?: string;
     signature?: string;
+    steamid?: string;
 }

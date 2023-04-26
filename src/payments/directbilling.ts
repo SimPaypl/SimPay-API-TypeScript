@@ -182,6 +182,7 @@ export class DirectBilling {
             request.returns?.success,
             request.returns?.failure,
             request.phoneNumber,
+            request.steamid,
             key
         ].filter(e => e !== undefined && e !== null);
 
