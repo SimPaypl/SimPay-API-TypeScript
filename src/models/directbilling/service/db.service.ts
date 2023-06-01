@@ -18,6 +18,7 @@ export interface DbService {
 
 export interface DbServiceNotify {
     success: string;
+    complete: string;
     failure: string;
 }
 

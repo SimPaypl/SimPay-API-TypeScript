@@ -197,7 +197,7 @@ export class DirectBilling {
             request.values?.net,
             request.values?.gross,
             request.values?.partner,
-            request.returns?.success,
+            request.returns?.complete,
             request.returns?.failure,
             request.control,
             request.number_from,
