@@ -1,14 +1,15 @@
 {
   "name": "simpay-typescript-api",
   "author": "Rafał Więcek",
-  "version": "2.2.4",
+  "version": "2.3.0",
   "description": "SimPay.pl API",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc",
-    "lint": "eslint",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix .",
     "dev": "tsc && node lib/test.js"
   },
   "keywords": [

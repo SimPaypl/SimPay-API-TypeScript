@@ -9,29 +9,29 @@ const run = async () => {
     console.log( await db.getServicesPaginated(1, 100) );
 
     // https://docs.simpay.pl/pl/typescript/?typescript#directbilling-pobieranie-informacji-o-usludze
-    console.log( await db.getService(158) );
+    console.log( await db.getService('19f3b33c') );
 
     // https://docs.simpay.pl/pl/typescript/?typescript#directbilling-kalkulacja-prowizji
-    console.log( await db.calculateCommission(158, 10.00) );
+    console.log( await db.calculateCommission('19f3b33c', 10.00) );
 
     // https://docs.simpay.pl/pl/typescript/?typescript#directbilling-pobieranie-listy-transakcji
-    const transactionsList = await db.getTransactions(158);
+    const transactionsList = await db.getTransactions('19f3b33c');
 
     console.log( transactionsList );
 
-    console.log( await db.getTransactionsPaginated(158, 1, 100) );
+    console.log( await db.getTransactionsPaginated('19f3b33c', 1, 100) );
 
     // https://docs.simpay.pl/pl/typescript/?typescript#directbilling-pobieranie-informacji-o-transakcji
-    console.log( await db.getTransaction(158, transactionsList?.[ 0 ].id) );
+    console.log( await db.getTransaction('19f3b33c', transactionsList?.[ 0 ].id) );
 
     // https://docs.simpay.pl/pl/typescript/?typescript#directbilling-generowanie-transakcji
-    console.log( await db.createTransaction(158, 'key', {
+    console.log( await db.createTransaction('19f3b33c', 'key', {
         amount: 10.00,
         amountType: AmountType.GROSS,
         control: 'test'
     }));
 
-    console.log( await db.checkNotification('key', {}));
+    console.log( db.checkNotification('key', {}));
 };
 
 // eslint-disable-next-line @typescript-eslint/no-empty-function

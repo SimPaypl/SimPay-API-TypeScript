@@ -14,12 +14,12 @@ export declare class DirectBilling {
     constructor(key: string, password: string);
     getServices(): Promise<PartialDbService[]>;
     getServicesPaginated(page?: number, pageSize?: number): Promise<PaginatedResponse<PartialDbService>>;
-    getService(id: number): Promise<DbService | undefined>;
-    calculateCommission(serviceId: number, amount: number): Promise<DbCalculation | undefined>;
-    getTransactions(serviceId: number): Promise<PartialDbTransaction[]>;
-    getTransactionsPaginated(serviceId: number, page?: number, pageSize?: number): Promise<PaginatedResponse<PartialDbTransaction>>;
-    getTransaction(serviceId: number, transactionId: string): Promise<DbTransaction | undefined>;
-    createTransaction(serviceId: number, key: string, request: DbTransactionRequest): Promise<DbGenerationResponse | undefined>;
+    getService(id: string): Promise<DbService | undefined>;
+    calculateCommission(serviceId: string, amount: number): Promise<DbCalculation | undefined>;
+    getTransactions(serviceId: string): Promise<PartialDbTransaction[]>;
+    getTransactionsPaginated(serviceId: string, page?: number, pageSize?: number): Promise<PaginatedResponse<PartialDbTransaction>>;
+    getTransaction(serviceId: string, transactionId: string): Promise<DbTransaction | undefined>;
+    createTransaction(serviceId: string, key: string, request: DbTransactionRequest): Promise<DbGenerationResponse | undefined>;
     checkNotification(key: string, body: any): DbNotificationRequest | undefined;
     generateSignature(key: string, request: DbTransactionRequest): string;
     generateSignatureNotification(key: string, request: DbNotificationRequest): string;

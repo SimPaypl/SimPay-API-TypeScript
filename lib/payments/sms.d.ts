@@ -10,15 +10,15 @@ export declare class Sms {
     constructor(key: string, password: string);
     getServices(): Promise<SmsService[]>;
     getServicesPaginated(page?: number, pageSize?: number): Promise<PaginatedResponse<SmsService>>;
-    getService(id: number): Promise<SmsService | undefined>;
-    getTransactions(serviceId: number): Promise<SmsTransaction[]>;
-    getTransactionsPaginated(serviceId: number, page?: number, pageSize?: number): Promise<PaginatedResponse<SmsTransaction>>;
-    getTransaction(serviceId: number, transactionId: number): Promise<SmsTransaction | undefined>;
-    getServiceNumbers(serviceId: number): Promise<SmsNumber[]>;
-    getServiceNumbersPaginated(serviceId: number, page?: number, pageSize?: number): Promise<PaginatedResponse<SmsNumber>>;
-    getServiceNumber(serviceId: number, number: number): Promise<SmsNumber>;
+    getService(id: string): Promise<SmsService | undefined>;
+    getTransactions(serviceId: string): Promise<SmsTransaction[]>;
+    getTransactionsPaginated(serviceId: string, page?: number, pageSize?: number): Promise<PaginatedResponse<SmsTransaction>>;
+    getTransaction(serviceId: string, transactionId: number): Promise<SmsTransaction | undefined>;
+    getServiceNumbers(serviceId: string): Promise<SmsNumber[]>;
+    getServiceNumbersPaginated(serviceId: string, page?: number, pageSize?: number): Promise<PaginatedResponse<SmsNumber>>;
+    getServiceNumber(serviceId: string, number: number): Promise<SmsNumber>;
     getNumbers(): Promise<SmsNumber[]>;
     getNumbersPaginated(page?: number, pageSize?: number): Promise<PaginatedResponse<SmsNumber>>;
     getNumber(number: number): Promise<SmsNumber | undefined>;
-    verifySmsCode(serviceId: number, code: string, number?: number): Promise<VerificationResponse | undefined>;
+    verifySmsCode(serviceId: string, code: string, number?: number): Promise<VerificationResponse | undefined>;
 }

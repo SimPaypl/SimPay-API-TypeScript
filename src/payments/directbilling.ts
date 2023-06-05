@@ -75,7 +75,7 @@ export class DirectBilling {
     /*
         https://docs.simpay.pl/pl/typescript/?typescript#directbilling-pobieranie-informacji-o-usludze
      */
-    async getService(id: number): Promise<DbService | undefined> {
+    async getService(id: string): Promise<DbService | undefined> {
         try {
             const service = (await this.client.get(`/${id}`)).data.data;
 
@@ -90,14 +90,14 @@ export class DirectBilling {
     /*
         https://docs.simpay.pl/pl/typescript/?typescript#directbilling-kalkulacja-prowizji
      */
-    async calculateCommission(serviceId: number, amount: number): Promise<DbCalculation | undefined> {
+    async calculateCommission(serviceId: string, amount: number): Promise<DbCalculation | undefined> {
         return (await this.client.get(`/${serviceId}/calculate?amount=${amount}`)).data.data;
     }
 
     /*
         https://docs.simpay.pl/pl/typescript/?typescript#directbilling-pobieranie-listy-transakcji
      */
-    async getTransactions(serviceId: number): Promise<PartialDbTransaction[]> {
+    async getTransactions(serviceId: string): Promise<PartialDbTransaction[]> {
         const result = [];
 
         let response = await this.client.get(`/${serviceId}/transactions`);
@@ -118,7 +118,7 @@ export class DirectBilling {
         });
     }
 
-    async getTransactionsPaginated(serviceId: number, page?: number, pageSize?: number): Promise<PaginatedResponse<PartialDbTransaction>> {
+    async getTransactionsPaginated(serviceId: string, page?: number, pageSize?: number): Promise<PaginatedResponse<PartialDbTransaction>> {
         const query: any = {};
 
         if (page) query.page = `${page}`;
@@ -141,7 +141,7 @@ export class DirectBilling {
     /*
         https://docs.simpay.pl/pl/typescript/?typescript#directbilling-pobieranie-informacji-o-transakcji
      */
-    async getTransaction(serviceId: number, transactionId: string): Promise<DbTransaction | undefined> {
+    async getTransaction(serviceId: string, transactionId: string): Promise<DbTransaction | undefined> {
         const transaction = (await this.client.get(`/${serviceId}/transactions/${transactionId}`)).data.data;
 
         transaction.created_at = new Date(transaction.created_at.replace(' ', 'T'));
@@ -153,7 +153,7 @@ export class DirectBilling {
     /*
         https://docs.simpay.pl/pl/typescript/?typescript#directbilling-generowanie-transakcji
      */
-    async createTransaction(serviceId: number, key: string, request: DbTransactionRequest): Promise<DbGenerationResponse | undefined> {
+    async createTransaction(serviceId: string, key: string, request: DbTransactionRequest): Promise<DbGenerationResponse | undefined> {
         request.signature = this.generateSignature(key, request);
 
         return (await this.client.post(`/${serviceId}/transactions`, request)).data;

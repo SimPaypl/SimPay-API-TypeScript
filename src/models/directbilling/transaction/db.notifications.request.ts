@@ -4,7 +4,7 @@ import {DbProviderID} from '../db.provider';
 
 export interface DbNotificationRequest {
     id: string,
-    service_id: number,
+    service_id: string,
     status: DbTransactionStatus,
     values?: {
         net?: number,

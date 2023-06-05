@@ -70,7 +70,7 @@ export class Sms {
     /*
         https://docs.simpay.pl/pl/typescript/?typescript#sms-pobieranie-informacji-o-usludze
      */
-    async getService(id: number): Promise<SmsService | undefined> {
+    async getService(id: string): Promise<SmsService | undefined> {
         const service = (await this.client.get(`/${id}`)).data.data;
 
         service.created_at = new Date(service.created_at.replace(' ', 'T'));
@@ -81,7 +81,7 @@ export class Sms {
     /*
         https://docs.simpay.pl/pl/typescript/?typescript#sms-pobieranie-listy-transakcji
      */
-    async getTransactions(serviceId: number): Promise<SmsTransaction[]> {
+    async getTransactions(serviceId: string): Promise<SmsTransaction[]> {
         const result = [];
 
         let response = await this.client.get(`/${serviceId}/transactions`);
@@ -101,7 +101,7 @@ export class Sms {
         });
     }
 
-    async getTransactionsPaginated(serviceId: number, page?: number, pageSize?: number): Promise<PaginatedResponse<SmsTransaction>> {
+    async getTransactionsPaginated(serviceId: string, page?: number, pageSize?: number): Promise<PaginatedResponse<SmsTransaction>> {
         const query: any = {};
 
         if (page) query.page = `${page}`;
@@ -123,7 +123,7 @@ export class Sms {
     /*
         https://docs.simpay.pl/pl/typescript/?typescript#sms-pobieranie-informacji-o-transakcji
      */
-    async getTransaction(serviceId: number, transactionId: number): Promise<SmsTransaction | undefined> {
+    async getTransaction(serviceId: string, transactionId: number): Promise<SmsTransaction | undefined> {
         const transaction = (await this.client.get(`/${serviceId}/transactions/${transactionId}`)).data.data;
 
         transaction.send_at = new Date(transaction.send_at.replace(' ', 'T'));
@@ -134,7 +134,7 @@ export class Sms {
     /*
         https://docs.simpay.pl/pl/typescript/?typescript#sms-pobieranie-dostepnych-numerow-dla-uslugi
      */
-    async getServiceNumbers(serviceId: number): Promise<SmsNumber[]> {
+    async getServiceNumbers(serviceId: string): Promise<SmsNumber[]> {
         const result = [];
 
         let response = await this.client.get(`/${serviceId}/numbers`);
@@ -150,7 +150,7 @@ export class Sms {
         return result;
     }
 
-    async getServiceNumbersPaginated(serviceId: number, page?: number, pageSize?: number): Promise<PaginatedResponse<SmsNumber>> {
+    async getServiceNumbersPaginated(serviceId: string, page?: number, pageSize?: number): Promise<PaginatedResponse<SmsNumber>> {
         const query: any = {};
 
         if (page) query.page = `${page}`;
@@ -164,7 +164,7 @@ export class Sms {
     /*
         https://docs.simpay.pl/pl/typescript/?typescript#sms-informacji-o-pojedynczym-numerze-uslugi
      */
-    async getServiceNumber(serviceId: number, number: number): Promise<SmsNumber> {
+    async getServiceNumber(serviceId: string, number: number): Promise<SmsNumber> {
         return (await this.client.get(`/${serviceId}/numbers/${number}`)).data.data;
     }
 
@@ -208,7 +208,7 @@ export class Sms {
     /*
         https://docs.simpay.pl/pl/typescript/?typescript#sms-weryfikacja-poprawnosci-kodu
      */
-    async verifySmsCode(serviceId: number, code: string, number?: number): Promise<VerificationResponse | undefined> {
+    async verifySmsCode(serviceId: string, code: string, number?: number): Promise<VerificationResponse | undefined> {
         const response = (await this.client.post(`/${serviceId}`, { code, number })).data.data;
 
         if( response.used_at ) {

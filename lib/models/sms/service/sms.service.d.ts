@@ -1,7 +1,7 @@
 import { SmsServiceType } from './sms.service.type';
 import { SMSServiceStatus } from './sms.service.status';
 export interface SmsService {
-    id: number;
+    id: string;
     type: SmsServiceType;
     status: SMSServiceStatus;
     name: string;
