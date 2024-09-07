@@ -1,36 +1,39 @@
 import { sha256 } from '../lib/hashing.js';
 
+const charset = 'ABCDEFGHIJKLMNPQRSTUVWXYZ123456789';
+const params = ['send_number', 'sms_text', 'sms_from', 'sms_id', 'sign'];
+const codes = {
+    '7055': 0.25,
+    '7136': 0.5,
+    '7255': 1.0,
+    '7355': 1.5,
+    '7455': 2.0,
+    '7555': 2.5,
+    '7636': 3.0,
+    '77464': 3.5,
+    '78464': 4.0,
+    '7936': 4.5,
+    '91055': 5.0,
+    '91155': 5.5,
+    '91455': 7.0,
+    '91664': 8.0,
+    '91955': 9.5,
+    '92055': 10.0,
+    '92555': 12.5,
+    '70908': 0.25,
+    '71908': 0.5,
+    '72998': 1,
+    '73908': 1.5,
+    '75908': 2.5,
+    '76908': 3,
+    '79908': 4.5,
+    '91998': 9.5,
+    '92598': 12.5,
+};
+
+type Codes = keyof typeof codes;
+
 export class SmsXml {
-    private static charset = 'ABCDEFGHIJKLMNPQRSTUVWXYZ123456789';
-    private static params = ['send_number', 'sms_text', 'sms_from', 'sms_id', 'sign'];
-    private static codes: any = {
-        '7055': 0.25,
-        '7136': 0.5,
-        '7255': 1.0,
-        '7355': 1.5,
-        '7455': 2.0,
-        '7555': 2.5,
-        '7636': 3.0,
-        '77464': 3.5,
-        '78464': 4.0,
-        '7936': 4.5,
-        '91055': 5.0,
-        '91155': 5.5,
-        '91455': 7.0,
-        '91664': 8.0,
-        '91955': 9.5,
-        '92055': 10.0,
-        '92555': 12.5,
-        '70908': 0.25,
-        '71908': 0.5,
-        '72998': 1,
-        '73908': 1.5,
-        '75908': 2.5,
-        '76908': 3,
-        '79908': 4.5,
-        '91998': 9.5,
-        '92598': 12.5,
-    };
 
     constructor(private apiKey: string) {}
 
@@ -38,7 +41,7 @@ export class SmsXml {
         https://docs.simpay.pl/pl/typescript/?typescript#smsxml-odbieranie-informacji-o-sms
      */
     checkParameters(map: any): boolean {
-        for (const param of SmsXml.params) {
+        for (const param of params) {
             if (!map[param]) return false;
         }
 
@@ -52,7 +55,7 @@ export class SmsXml {
         let result = '';
 
         for (let i = 0; i < 6; i++) {
-            result += SmsXml.charset.charAt(this.random(0, SmsXml.charset.length));
+            result += charset.charAt(this.random(0, charset.length));
         }
 
         return result;
@@ -61,8 +64,8 @@ export class SmsXml {
     /*
         https://docs.simpay.pl/pl/typescript/?typescript#smsxml-odbieranie-informacji-o-sms
      */
-    getSmsValue(phone: string): number {
-        return SmsXml.codes[phone];
+    getSmsValue(phone: Codes): number {
+        return codes[phone];
     }
 
     /*
