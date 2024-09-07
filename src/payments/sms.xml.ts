@@ -34,7 +34,6 @@ const codes = {
 type Codes = keyof typeof codes;
 
 export class SmsXml {
-
     constructor(private apiKey: string) {}
 
     /*
