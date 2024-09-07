@@ -1,14 +1,14 @@
-import axios, {AxiosInstance} from 'axios';
-import {PaginatedResponse} from '../models/response/paginated.response';
-import {DbService} from '../models/directbilling/service/db.service';
-import {PartialDbService} from '../models/directbilling/service/partial.db.service';
-import {DbCalculation} from '../models/directbilling/service/db.calculation';
-import {PartialDbTransaction} from '../models/directbilling/transaction/partial.db.transaction';
-import {DbTransaction} from '../models/directbilling/transaction/db.transaction';
-import {DbGenerationResponse} from '../models/directbilling/transaction/db.generation.response';
-import {DbTransactionRequest} from '../models/directbilling/transaction/db.transaction.request';
-import {DbNotificationRequest} from '../models/directbilling/transaction/db.notifications.request';
-import {Hashing} from '../lib/hashing';
+import axios, { type AxiosInstance } from 'axios';
+import { sha256 } from '../lib/hashing.js';
+import type { DbCalculation } from '../models/directbilling/service/db.calculation.js';
+import type { DbService } from '../models/directbilling/service/db.service.js';
+import type { PartialDbService } from '../models/directbilling/service/partial.db.service.js';
+import type { DbGenerationResponse } from '../models/directbilling/transaction/db.generation.response.js';
+import type { DbNotificationRequest } from '../models/directbilling/transaction/db.notifications.request.js';
+import type { DbTransaction } from '../models/directbilling/transaction/db.transaction.js';
+import type { DbTransactionRequest } from '../models/directbilling/transaction/db.transaction.request.js';
+import type { PartialDbTransaction } from '../models/directbilling/transaction/partial.db.transaction.js';
+import type { PaginatedResponse } from '../models/response/paginated.response.js';
 
 export class DirectBilling {
     private readonly key: string;
@@ -26,7 +26,7 @@ export class DirectBilling {
                 'X-SIM-PASSWORD': this.password,
                 'X-SIM-VERSION': '2.2.2',
                 'X-SIM-PLATFORM': 'TYPESCRIPT',
-            }
+            },
         });
     }
 
@@ -40,20 +40,25 @@ export class DirectBilling {
 
         result.push(...response.data.data);
 
-        while(response.data.pagination.links.next_page !== null) {
-            response = await this.client.get(`/?page=${+response.data.pagination.current_page + 1}`);
+        while (response.data.pagination.links.next_page !== null) {
+            response = await this.client.get(
+                `/?page=${+response.data.pagination.current_page + 1}`,
+            );
 
             result.push(...response.data.data);
         }
 
-        return result.map(e => {
+        return result.map((e) => {
             e.created_at = new Date(e.created_at.replace(' ', 'T'));
 
             return e;
         });
     }
 
-    async getServicesPaginated(page?: number, pageSize?: number): Promise<PaginatedResponse<PartialDbService>> {
+    async getServicesPaginated(
+        page?: number,
+        pageSize?: number,
+    ): Promise<PaginatedResponse<PartialDbService>> {
         const query: any = {};
 
         if (page) query.page = `${page}`;
@@ -80,9 +85,9 @@ export class DirectBilling {
             const service = (await this.client.get(`/${id}`)).data.data;
 
             service.created_at = new Date(service.created_at.replace(' ', 'T'));
-    
+
             return service;
-        } catch(e) {
+        } catch (e) {
             return undefined;
         }
     }
@@ -90,7 +95,10 @@ export class DirectBilling {
     /*
         https://docs.simpay.pl/pl/typescript/?typescript#directbilling-kalkulacja-prowizji
      */
-    async calculateCommission(serviceId: string, amount: number): Promise<DbCalculation | undefined> {
+    async calculateCommission(
+        serviceId: string,
+        amount: number,
+    ): Promise<DbCalculation | undefined> {
         return (await this.client.get(`/${serviceId}/calculate?amount=${amount}`)).data.data;
     }
 
@@ -104,13 +112,15 @@ export class DirectBilling {
 
         result.push(...response.data.data);
 
-        while(response.data.pagination.links.next_page !== null) {
-            response = await this.client.get(`/${serviceId}/transactions?page=${(<number> response.data.pagination.current_page) + 1}`);
+        while (response.data.pagination.links.next_page !== null) {
+            response = await this.client.get(
+                `/${serviceId}/transactions?page=${<number>response.data.pagination.current_page + 1}`,
+            );
 
             result.push(...response.data.data);
         }
 
-        return result.map(e => {
+        return result.map((e) => {
             e.created_at = new Date(e.created_at.replace(' ', 'T'));
             e.updated_at = new Date(e.updated_at.replace(' ', 'T'));
 
@@ -118,7 +128,11 @@ export class DirectBilling {
         });
     }
 
-    async getTransactionsPaginated(serviceId: string, page?: number, pageSize?: number): Promise<PaginatedResponse<PartialDbTransaction>> {
+    async getTransactionsPaginated(
+        serviceId: string,
+        page?: number,
+        pageSize?: number,
+    ): Promise<PaginatedResponse<PartialDbTransaction>> {
         const query: any = {};
 
         if (page) query.page = `${page}`;
@@ -141,8 +155,12 @@ export class DirectBilling {
     /*
         https://docs.simpay.pl/pl/typescript/?typescript#directbilling-pobieranie-informacji-o-transakcji
      */
-    async getTransaction(serviceId: string, transactionId: string): Promise<DbTransaction | undefined> {
-        const transaction = (await this.client.get(`/${serviceId}/transactions/${transactionId}`)).data.data;
+    async getTransaction(
+        serviceId: string,
+        transactionId: string,
+    ): Promise<DbTransaction | undefined> {
+        const transaction = (await this.client.get(`/${serviceId}/transactions/${transactionId}`))
+            .data.data;
 
         transaction.created_at = new Date(transaction.created_at.replace(' ', 'T'));
         transaction.updated_at = new Date(transaction.updated_at.replace(' ', 'T'));
@@ -153,7 +171,11 @@ export class DirectBilling {
     /*
         https://docs.simpay.pl/pl/typescript/?typescript#directbilling-generowanie-transakcji
      */
-    async createTransaction(serviceId: string, key: string, request: DbTransactionRequest): Promise<DbGenerationResponse | undefined> {
+    async createTransaction(
+        serviceId: string,
+        key: string,
+        request: DbTransactionRequest,
+    ): Promise<DbGenerationResponse | undefined> {
         request.signature = this.generateSignature(key, request);
 
         return (await this.client.post(`/${serviceId}/transactions`, request)).data;
@@ -167,7 +189,7 @@ export class DirectBilling {
 
         if (body.signature !== signature) return undefined;
 
-        return <DbNotificationRequest> body;
+        return <DbNotificationRequest>body;
     }
 
     /*
@@ -183,10 +205,10 @@ export class DirectBilling {
             request.returns?.failure,
             request.phoneNumber,
             request.steamid,
-            key
-        ].filter(e => e !== undefined && e !== null);
+            key,
+        ].filter((e) => e !== undefined && e !== null);
 
-        return Hashing.sha256(elements.join('|'));
+        return sha256(elements.join('|'));
     }
 
     generateSignatureNotification(key: string, request: DbNotificationRequest): string {
@@ -202,9 +224,9 @@ export class DirectBilling {
             request.control,
             request.number_from,
             request.provider,
-            key
-        ].filter(e => e !== undefined && e !== null);
+            key,
+        ].filter((e) => e !== undefined && e !== null);
 
-        return Hashing.sha256(elements.join('|'));
+        return sha256(elements.join('|'));
     }
 }

@@ -6,5 +6,5 @@ export enum SMSServiceStatus {
     SERVICE_SECOND_VERIFY = 'service_second_verify',
     SERVICE_REJECTED = 'service_rejected',
     SERVICE_VERIFY = 'service_verify',
-    SERVICE_ONGOING_REGISTRATION = 'service_ongoing_registration'
+    SERVICE_ONGOING_REGISTRATION = 'service_ongoing_registration',
 }

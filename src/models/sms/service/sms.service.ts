@@ -1,5 +1,5 @@
-import {SmsServiceType} from './sms.service.type';
-import {SMSServiceStatus} from './sms.service.status';
+import type { SMSServiceStatus } from './sms.service.status.js';
+import type { SmsServiceType } from './sms.service.type.js';
 
 export interface SmsService {
     id: string;

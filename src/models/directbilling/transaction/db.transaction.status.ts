@@ -4,5 +4,5 @@ export enum DbTransactionStatus {
     TRANSACTION_DB_REJECTED = 'transaction_db_rejected',
     TRANSACTION_DB_CANCELED = 'transaction_db_canceled',
     TRANSACTION_DB_PAYED = 'transaction_db_payed',
-    TRANSACTION_DB_GENERATE_ERROR = 'transaction_db_generate_error'
+    TRANSACTION_DB_GENERATE_ERROR = 'transaction_db_generate_error',
 }

@@ -1,7 +1,7 @@
 export interface DbGenerationResponse {
     success: boolean;
     data: DbGenerationResponseBody;
-    errors?: { [key: string]: string[] }
+    errors?: { [key: string]: string[] };
 }
 
 interface DbGenerationResponseBody {

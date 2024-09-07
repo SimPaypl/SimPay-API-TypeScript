@@ -1,5 +1,5 @@
-import {DBServiceStatus} from '../service/db.service.status';
-import {DbProvider} from '../db.provider';
+import { DbProvider } from '../db.provider.js';
+import type { DBServiceStatus } from '../service/db.service.status.js';
 
 export interface DbService {
     id: string;
@@ -8,10 +8,10 @@ export interface DbService {
     status: DBServiceStatus;
 
     api?: DbServiceNotify;
-    
+
     providers: DbServiceProviders;
-    commissions: DbServiceProvidersCommission,
-    maxValues: DbServiceProvidersLimit,
+    commissions: DbServiceProvidersCommission;
+    maxValues: DbServiceProvidersLimit;
 
     created_at: Date;
 }

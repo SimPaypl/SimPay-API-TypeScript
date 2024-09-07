@@ -1,4 +1,4 @@
-import {DBServiceStatus} from './db.service.status';
+import type { DBServiceStatus } from './db.service.status.js';
 
 export interface PartialDbService {
     id: string;

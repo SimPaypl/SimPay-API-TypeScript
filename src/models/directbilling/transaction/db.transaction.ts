@@ -1,5 +1,5 @@
-import {DbTransactionStatus} from './db.transaction.status';
-import {DbProvider} from '../db.provider';
+import type { DbProvider } from '../db.provider.js';
+import type { DbTransactionStatus } from './db.transaction.status.js';
 
 export interface DbTransaction {
     id: string;
@@ -13,7 +13,7 @@ export interface DbTransaction {
 
     operator: DbProvider;
 
-    notify: DbTransactionNotify,
+    notify: DbTransactionNotify;
 
     created_at: Date;
     updated_at: Date;

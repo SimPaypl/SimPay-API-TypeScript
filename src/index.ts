@@ -1,28 +1,28 @@
 // DirectBilling - Models
-export { DbCalculation } from './models/directbilling/service/db.calculation';
-export { DbProvider, DbProviderID } from './models/directbilling/db.provider';
-export { DbService, DbServiceNotify } from './models/directbilling/service/db.service';
-export { PartialDbService } from './models/directbilling/service/partial.db.service';
-export { DbGenerationResponse } from './models/directbilling/transaction/db.generation.response';
-export { DbTransactionRequest } from './models/directbilling/transaction/db.transaction.request';
-export { DbTransactionStatus } from './models/directbilling/transaction/db.transaction.status';
-export { DbTransaction } from './models/directbilling/transaction/db.transaction';
-export { PartialDbTransaction } from './models/directbilling/transaction/partial.db.transaction';
-export { DBServiceStatus } from './models/directbilling/service/db.service.status';
+export { type DbCalculation } from './models/directbilling/service/db.calculation.js';
+export { DbProvider, DbProviderID } from './models/directbilling/db.provider.js';
+export { type DbService, type DbServiceNotify } from './models/directbilling/service/db.service.js';
+export { type PartialDbService } from './models/directbilling/service/partial.db.service.js';
+export { type DbGenerationResponse } from './models/directbilling/transaction/db.generation.response.js';
+export { type DbTransactionRequest } from './models/directbilling/transaction/db.transaction.request.js';
+export { DbTransactionStatus } from './models/directbilling/transaction/db.transaction.status.js';
+export { type DbTransaction } from './models/directbilling/transaction/db.transaction.js';
+export { type PartialDbTransaction } from './models/directbilling/transaction/partial.db.transaction.js';
+export { DBServiceStatus } from './models/directbilling/service/db.service.status.js';
 
 // Response
-export { PaginatedResponse } from './models/response/paginated.response';
-export { AmountType } from './models/amount.type';
+export { type PaginatedResponse } from './models/response/paginated.response.js';
+export { AmountType } from './models/amount.type.js';
 
 // SMS - Models
-export { SmsNumber } from './models/sms/service/sms.number';
-export { SmsService } from './models/sms/service/sms.service';
-export { SmsServiceType } from './models/sms/service/sms.service.type';
-export { SmsTransaction } from './models/sms/transaction/sms.transaction';
-export { VerificationResponse } from './models/sms/verification.response';
-export { SMSServiceStatus } from './models/sms/service/sms.service.status';
+export { type SmsNumber } from './models/sms/service/sms.number.js';
+export { type SmsService } from './models/sms/service/sms.service.js';
+export { SmsServiceType } from './models/sms/service/sms.service.type.js';
+export { type SmsTransaction } from './models/sms/transaction/sms.transaction.js';
+export { type VerificationResponse } from './models/sms/verification.response.js';
+export { SMSServiceStatus } from './models/sms/service/sms.service.status.js';
 
 // Payments
-export { DirectBilling } from './payments/directbilling';
-export { Sms } from './payments/sms';
-export { SmsXml } from './payments/sms.xml';
+export { DirectBilling } from './payments/directbilling.js';
+export { Sms } from './payments/sms.js';
+export { SmsXml } from './payments/sms.xml.js';

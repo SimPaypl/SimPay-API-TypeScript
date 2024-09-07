@@ -1,9 +1,9 @@
-import {SmsService} from '../models/sms/service/sms.service';
-import axios, {AxiosInstance} from 'axios';
-import {SmsTransaction} from '../models/sms/transaction/sms.transaction';
-import {SmsNumber} from '../models/sms/service/sms.number';
-import {PaginatedResponse} from '../models/response/paginated.response';
-import {VerificationResponse} from '../models/sms/verification.response';
+import axios, { type AxiosInstance } from 'axios';
+import type { PaginatedResponse } from '../models/response/paginated.response.js';
+import type { SmsNumber } from '../models/sms/service/sms.number.js';
+import type { SmsService } from '../models/sms/service/sms.service.js';
+import type { SmsTransaction } from '../models/sms/transaction/sms.transaction.js';
+import type { VerificationResponse } from '../models/sms/verification.response.js';
 
 export class Sms {
     private readonly key: string;
@@ -21,7 +21,7 @@ export class Sms {
                 'X-SIM-PASSWORD': this.password,
                 'X-SIM-VERSION': '2.2.2',
                 'X-SIM-PLATFORM': 'TYPESCRIPT',
-            }
+            },
         });
     }
 
@@ -35,20 +35,25 @@ export class Sms {
 
         result.push(...response.data.data);
 
-        while(response.data.pagination.links.next_page !== null) {
-            response = await this.client.get(`/?page=${(<number> response.data.pagination.current_page) + 1}`);
+        while (response.data.pagination.links.next_page !== null) {
+            response = await this.client.get(
+                `/?page=${<number>response.data.pagination.current_page + 1}`,
+            );
 
             result.push(...response.data.data);
         }
 
-        return result.map(e => {
+        return result.map((e) => {
             e.created_at = new Date(e.created_at.replace(' ', 'T'));
 
             return e;
         });
     }
 
-    async getServicesPaginated(page?: number, pageSize?: number): Promise<PaginatedResponse<SmsService>> {
+    async getServicesPaginated(
+        page?: number,
+        pageSize?: number,
+    ): Promise<PaginatedResponse<SmsService>> {
         const query: any = {};
 
         if (page) query.page = `${page}`;
@@ -88,20 +93,26 @@ export class Sms {
 
         result.push(...response.data.data);
 
-        while(response.data.pagination.links.next_page !== null) {
-            response = await this.client.get(`/${serviceId}/transactions?page=${(<number> response.data.pagination.current_page) + 1}`);
+        while (response.data.pagination.links.next_page !== null) {
+            response = await this.client.get(
+                `/${serviceId}/transactions?page=${<number>response.data.pagination.current_page + 1}`,
+            );
 
             result.push(...response.data.data);
         }
 
-        return result.map(e => {
+        return result.map((e) => {
             e.send_at = new Date(e.send_at.replace(' ', 'T'));
 
             return e;
         });
     }
 
-    async getTransactionsPaginated(serviceId: string, page?: number, pageSize?: number): Promise<PaginatedResponse<SmsTransaction>> {
+    async getTransactionsPaginated(
+        serviceId: string,
+        page?: number,
+        pageSize?: number,
+    ): Promise<PaginatedResponse<SmsTransaction>> {
         const query: any = {};
 
         if (page) query.page = `${page}`;
@@ -123,8 +134,12 @@ export class Sms {
     /*
         https://docs.simpay.pl/pl/typescript/?typescript#sms-pobieranie-informacji-o-transakcji
      */
-    async getTransaction(serviceId: string, transactionId: number): Promise<SmsTransaction | undefined> {
-        const transaction = (await this.client.get(`/${serviceId}/transactions/${transactionId}`)).data.data;
+    async getTransaction(
+        serviceId: string,
+        transactionId: number,
+    ): Promise<SmsTransaction | undefined> {
+        const transaction = (await this.client.get(`/${serviceId}/transactions/${transactionId}`))
+            .data.data;
 
         transaction.send_at = new Date(transaction.send_at.replace(' ', 'T'));
 
@@ -141,8 +156,10 @@ export class Sms {
 
         result.push(...response.data.data);
 
-        while(response.data.pagination.links.next_page !== null) {
-            response = await this.client.get(`/${serviceId}/numbers?page=${(<number> response.data.pagination.current_page) + 1}`);
+        while (response.data.pagination.links.next_page !== null) {
+            response = await this.client.get(
+                `/${serviceId}/numbers?page=${<number>response.data.pagination.current_page + 1}`,
+            );
 
             result.push(...response.data.data);
         }
@@ -150,7 +167,11 @@ export class Sms {
         return result;
     }
 
-    async getServiceNumbersPaginated(serviceId: string, page?: number, pageSize?: number): Promise<PaginatedResponse<SmsNumber>> {
+    async getServiceNumbersPaginated(
+        serviceId: string,
+        page?: number,
+        pageSize?: number,
+    ): Promise<PaginatedResponse<SmsNumber>> {
         const query: any = {};
 
         if (page) query.page = `${page}`;
@@ -178,8 +199,10 @@ export class Sms {
 
         result.push(...response.data.data);
 
-        while(response.data.pagination.links.next_page !== null) {
-            response = await this.client.get(`/numbers?page=${(<number> response.data.pagination.current_page) + 1}`);
+        while (response.data.pagination.links.next_page !== null) {
+            response = await this.client.get(
+                `/numbers?page=${<number>response.data.pagination.current_page + 1}`,
+            );
 
             result.push(...response.data.data);
         }
@@ -187,7 +210,10 @@ export class Sms {
         return result;
     }
 
-    async getNumbersPaginated(page?: number, pageSize?: number): Promise<PaginatedResponse<SmsNumber>> {
+    async getNumbersPaginated(
+        page?: number,
+        pageSize?: number,
+    ): Promise<PaginatedResponse<SmsNumber>> {
         const query: any = {};
 
         if (page) query.page = `${page}`;
@@ -208,10 +234,14 @@ export class Sms {
     /*
         https://docs.simpay.pl/pl/typescript/?typescript#sms-weryfikacja-poprawnosci-kodu
      */
-    async verifySmsCode(serviceId: string, code: string, number?: number): Promise<VerificationResponse | undefined> {
+    async verifySmsCode(
+        serviceId: string,
+        code: string,
+        number?: number,
+    ): Promise<VerificationResponse | undefined> {
         const response = (await this.client.post(`/${serviceId}`, { code, number })).data.data;
 
-        if( response.used_at ) {
+        if (response.used_at) {
             response.used_at = new Date(response.used_at.replace(' ', 'T'));
         }
 

@@ -1,5 +1,5 @@
-import {AmountType} from '../../amount.type';
-import {DbServiceNotify} from '../service/db.service';
+import type { AmountType } from '../../amount.type.js';
+import type { DbServiceNotify } from '../service/db.service.js';
 
 export interface DbTransactionRequest {
     amount: number;

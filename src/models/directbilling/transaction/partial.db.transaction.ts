@@ -1,5 +1,5 @@
-import {DbProvider} from '../db.provider';
-import {DbTransactionStatus} from './db.transaction.status';
+import type { DbProvider } from '../db.provider.js';
+import type { DbTransactionStatus } from './db.transaction.status.js';
 
 export interface PartialDbTransaction {
     id: string;

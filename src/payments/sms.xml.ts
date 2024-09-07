@@ -1,4 +1,4 @@
-import {Hashing} from '../lib/hashing';
+import { sha256 } from '../lib/hashing.js';
 
 export class SmsXml {
     private static charset = 'ABCDEFGHIJKLMNPQRSTUVWXYZ123456789';
@@ -73,8 +73,9 @@ export class SmsXml {
     }
 
     private sign(map: any) {
-        // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-        return Hashing.sha256(`${map.sms_id}${map.sms_text}${map.sms_from}${map.send_number}${map.send_time}${this.apiKey}`);
+        return sha256(
+            `${map.sms_id}${map.sms_text}${map.sms_from}${map.send_number}${map.send_time}${this.apiKey}`,
+        );
     }
 
     private random(min: number, max: number) {
