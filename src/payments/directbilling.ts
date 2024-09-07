@@ -11,11 +11,12 @@ import type { PartialDbTransaction } from '../models/directbilling/transaction/p
 import type { PaginatedResponse } from '../models/response/paginated.response.js';
 
 export class DirectBilling {
-    private readonly key: string;
-    private readonly password: string;
     private readonly client: AxiosInstance;
 
-    constructor(key: string, password: string) {
+    constructor(
+        private readonly key: string,
+        private readonly password: string,
+    ) {
         this.key = key;
         this.password = password;
 
@@ -24,7 +25,7 @@ export class DirectBilling {
             headers: {
                 'X-SIM-KEY': this.key,
                 'X-SIM-PASSWORD': this.password,
-                'X-SIM-VERSION': '2.2.2',
+                'X-SIM-VERSION': '3.0.2',
                 'X-SIM-PLATFORM': 'TYPESCRIPT',
             },
         });

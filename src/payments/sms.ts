@@ -6,20 +6,18 @@ import type { SmsTransaction } from '../models/sms/transaction/sms.transaction.j
 import type { VerificationResponse } from '../models/sms/verification.response.js';
 
 export class Sms {
-    private readonly key: string;
-    private readonly password: string;
     private readonly client: AxiosInstance;
 
-    constructor(key: string, password: string) {
-        this.key = key;
-        this.password = password;
-
+    constructor(
+        private readonly key: string,
+        private readonly password: string,
+    ) {
         this.client = axios.create({
             baseURL: 'https://api.simpay.pl/sms',
             headers: {
                 'X-SIM-KEY': this.key,
                 'X-SIM-PASSWORD': this.password,
-                'X-SIM-VERSION': '2.2.2',
+                'X-SIM-VERSION': '3.0.2',
                 'X-SIM-PLATFORM': 'TYPESCRIPT',
             },
         });
