@@ -33,7 +33,12 @@
     "sms-payment",
     "sms-payments",
     "db-payment",
-    "db-payments"
+    "db-payments",
+    "payment-integration",
+    "online-payments",
+    "mobile-payments",
+    "payment-sdk",
+    "payment-service"
   ],
   "license": "MIT",
   "dependencies": {
