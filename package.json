@@ -46,9 +46,9 @@
   },
   "devDependencies": {
     "@arethetypeswrong/cli": "^0.16.4",
-    "@biomejs/biome": "1.9.3",
+    "@biomejs/biome": "1.9.4",
     "@changesets/cli": "^2.27.9",
-    "@types/node": "^22.7.5",
+    "@types/node": "^22.8.5",
     "ts-node": "^10.9.2",
     "typescript": "^5.6.3"
   },
