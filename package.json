@@ -1,7 +1,7 @@
 {
   "name": "simpay-typescript-api",
   "author": "Rafał Więcek <r.wiecek@simpay.pl> (https://github.com/DarkGL)",
-  "version": "3.0.2",
+  "version": "3.0.3",
   "description": "SimPay.pl API wrapper",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

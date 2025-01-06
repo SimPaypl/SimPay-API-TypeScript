@@ -25,7 +25,7 @@ export class DirectBilling {
             headers: {
                 'X-SIM-KEY': this.key,
                 'X-SIM-PASSWORD': this.password,
-                'X-SIM-VERSION': '3.0.2',
+                'X-SIM-VERSION': '3.0.3',
                 'X-SIM-PLATFORM': 'TYPESCRIPT',
             },
         });
