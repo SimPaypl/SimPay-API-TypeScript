@@ -1,7 +1,14 @@
 import { sha256 } from '../lib/hashing.js';
 
 const charset = 'ABCDEFGHIJKLMNPQRSTUVWXYZ123456789';
-const params = ['send_number', 'sms_text', 'sms_from', 'sms_id', 'sign'];
+const params = ['send_number', 'sms_text', 'sms_from', 'sms_id', 'sign'] as const;
+
+type ParamsSMS = {
+    [T in (typeof params)[number]]: string | number;
+} & {
+    send_time?: string;
+};
+
 const codes = {
     '7055': 0.25,
     '7136': 0.5,
@@ -29,7 +36,7 @@ const codes = {
     '79908': 4.5,
     '91998': 9.5,
     '92598': 12.5,
-};
+} as const;
 
 type Codes = keyof typeof codes;
 
@@ -39,7 +46,7 @@ export class SmsXml {
     /*
         https://docs.simpay.pl/pl/typescript/?typescript#smsxml-odbieranie-informacji-o-sms
      */
-    checkParameters(map: any): boolean {
+    checkParameters(map: ParamsSMS): boolean {
         for (const param of params) {
             if (!map[param]) return false;
         }
@@ -74,7 +81,7 @@ export class SmsXml {
         return `<?xml version="1.0" encoding="UTF-8"?><sms-response>${text.normalize('NFKD')}<sms-text></sms-text></sms-response>`;
     }
 
-    private sign(map: any) {
+    private sign(map: ParamsSMS) {
         return sha256(
             `${map.sms_id}${map.sms_text}${map.sms_from}${map.send_number}${map.send_time}${this.apiKey}`,
         );

@@ -3,6 +3,7 @@ import { sha256 } from '../lib/hashing.js';
 import type { DbCalculation } from '../models/directbilling/service/db.calculation.js';
 import type { DbService } from '../models/directbilling/service/db.service.js';
 import type { PartialDbService } from '../models/directbilling/service/partial.db.service.js';
+import type { DirectBillingServicePaginatedResponse } from '../models/directbilling/service/service-paginated.response.js';
 import type { DbGenerationResponse } from '../models/directbilling/transaction/db.generation.response.js';
 import type { DbNotificationRequest } from '../models/directbilling/transaction/db.notifications.request.js';
 import type { DbTransaction } from '../models/directbilling/transaction/db.transaction.js';
@@ -25,7 +26,7 @@ export class DirectBilling {
             headers: {
                 'X-SIM-KEY': this.key,
                 'X-SIM-PASSWORD': this.password,
-                'X-SIM-VERSION': '3.0.3',
+                'X-SIM-VERSION': '3.1.0',
                 'X-SIM-PLATFORM': 'TYPESCRIPT',
             },
         });
@@ -60,17 +61,17 @@ export class DirectBilling {
         page?: number,
         pageSize?: number,
     ): Promise<PaginatedResponse<PartialDbService>> {
-        const query: any = {};
+        const query: Record<string, string> = {};
 
         if (page) query.page = `${page}`;
         if (pageSize) query.limit = `${pageSize}`;
 
         const url = `/?${new URLSearchParams(query).toString()}`;
 
-        const response = (await this.client.get(url)).data;
+        const response = (await this.client.get<DirectBillingServicePaginatedResponse>(url)).data;
 
-        response.data = response.data.map((e: any) => {
-            e.created_at = new Date(e.created_at.replace(' ', 'T'));
+        response.data = response.data.map((e) => {
+            e.created_at = new Date(e.created_at.toString().replace(' ', 'T'));
 
             return e;
         });
@@ -134,7 +135,7 @@ export class DirectBilling {
         page?: number,
         pageSize?: number,
     ): Promise<PaginatedResponse<PartialDbTransaction>> {
-        const query: any = {};
+        const query: Record<string, string> = {};
 
         if (page) query.page = `${page}`;
         if (pageSize) query.limit = `${pageSize}`;
@@ -185,12 +186,12 @@ export class DirectBilling {
     /*
         https://docs.simpay.pl/shell/?shell#directbilling-generowanie-transakcji
      */
-    checkNotification(key: string, body: any) {
+    checkNotification(key: string, body: DbNotificationRequest) {
         const signature = this.generateSignatureNotification(key, body);
 
         if (body.signature !== signature) return undefined;
 
-        return <DbNotificationRequest>body;
+        return body as DbNotificationRequest;
     }
 
     /*

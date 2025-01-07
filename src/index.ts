@@ -22,7 +22,14 @@ export type { SmsTransaction } from './models/sms/transaction/sms.transaction.js
 export type { VerificationResponse } from './models/sms/verification.response.js';
 export { SMSServiceStatus } from './models/sms/service/sms.service.status.js';
 
+// Online Payments - Models
+export type { TransactionRequest } from './models/payment/transaction/transaction-request.js';
+export type { TransactionNotification } from './models/payment/transaction/transaction-notification.js';
+export type { TransactionDetailsResponse } from './models/payment/transaction/transaction-details-response.js';
+export type { TransactionStatus } from './models/payment/payment.provider.js';
+
 // Payments
 export { DirectBilling } from './payments/directbilling.js';
 export { Sms } from './payments/sms.js';
 export { SmsXml } from './payments/sms.xml.js';
+export { Payment } from './payments/payment.js';

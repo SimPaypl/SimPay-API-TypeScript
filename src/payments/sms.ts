@@ -17,7 +17,7 @@ export class Sms {
             headers: {
                 'X-SIM-KEY': this.key,
                 'X-SIM-PASSWORD': this.password,
-                'X-SIM-VERSION': '3.0.3',
+                'X-SIM-VERSION': '3.1.0',
                 'X-SIM-PLATFORM': 'TYPESCRIPT',
             },
         });
@@ -52,7 +52,7 @@ export class Sms {
         page?: number,
         pageSize?: number,
     ): Promise<PaginatedResponse<SmsService>> {
-        const query: any = {};
+        const query: Record<string, string> = {};
 
         if (page) query.page = `${page}`;
         if (pageSize) query.limit = `${pageSize}`;
@@ -111,7 +111,7 @@ export class Sms {
         page?: number,
         pageSize?: number,
     ): Promise<PaginatedResponse<SmsTransaction>> {
-        const query: any = {};
+        const query: Record<string, string> = {};
 
         if (page) query.page = `${page}`;
         if (pageSize) query.limit = `${pageSize}`;
@@ -170,7 +170,7 @@ export class Sms {
         page?: number,
         pageSize?: number,
     ): Promise<PaginatedResponse<SmsNumber>> {
-        const query: any = {};
+        const query: Record<string, string> = {};
 
         if (page) query.page = `${page}`;
         if (pageSize) query.limit = `${pageSize}`;
@@ -212,7 +212,7 @@ export class Sms {
         page?: number,
         pageSize?: number,
     ): Promise<PaginatedResponse<SmsNumber>> {
-        const query: any = {};
+        const query: Record<string, string> = {};
 
         if (page) query.page = `${page}`;
         if (pageSize) query.limit = `${pageSize}`;

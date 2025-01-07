@@ -1,18 +1,18 @@
 {
   "name": "simpay-typescript-api",
   "author": "Rafał Więcek <r.wiecek@simpay.pl> (https://github.com/DarkGL)",
-  "version": "3.0.3",
+  "version": "3.1.0",
   "description": "SimPay.pl API wrapper",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "type": "module",
   "scripts": {
-    "ci": "npm run build && npm run check && npm run check-exports",
+    "ci": "npm run build && npm run check && npm run check-exports && npm run test",
     "lint": "npx @biomejs/biome lint --write ./src",
     "format": "npx @biomejs/biome format --write ./src",
     "check": "npx @biomejs/biome check --write ./src",
     "build": "tsc --build",
-    "test": "npm run build && node --loader ts-node/esm ./tests/index.ts",
+    "test": "npm run build && vitest run",
     "check-exports": "attw --pack . --ignore-rules=cjs-resolves-to-esm",
     "local-release": "changeset version && changeset publish",
     "prepublishOnly": "npm run ci"
@@ -50,7 +50,8 @@
     "@changesets/cli": "^2.27.11",
     "@types/node": "^22.10.5",
     "ts-node": "^10.9.2",
-    "typescript": "^5.7.2"
+    "typescript": "^5.7.2",
+    "vitest": "^2.1.8"
   },
   "repository": {
     "type": "git",
